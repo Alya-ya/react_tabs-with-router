@@ -1,12 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
+import { Tab } from '../types/Tab';
+import React from 'react';
 
-const tabs = [
-  { id: 'tab-1', title: 'Tab 1', content: 'Some text 1' },
-  { id: 'tab-2', title: 'Tab 2', content: 'Some text 2' },
-  { id: 'tab-3', title: 'Tab 3', content: 'Some text 3' },
-];
+type Props = {
+  tabs: Tab[];
+};
 
-export const TabsPage = () => {
+export const Tabs: React.FC<Props> = ({ tabs }) => {
   const { tabId } = useParams();
   const activeTab = tabs.find(tab => tab.id === tabId);
 
@@ -18,9 +18,9 @@ export const TabsPage = () => {
           <ul>
             {tabs.map(tab => (
               <li
-                data-cy="Tab"
                 key={tab.id}
-                className={tab.id === tabId ? 'is-active' : ''}
+                className={tab.id === activeTab?.id ? 'is-active' : ''}
+                data-cy="Tab"
               >
                 <Link to={`/tabs/${tab.id}`} data-cy="TabLink">
                   {tab.title}
